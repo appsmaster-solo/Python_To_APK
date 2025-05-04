@@ -1,0 +1,50 @@
+import time
+
+questions_by_difficulty = {
+    "easy": [
+        {"question": "Which animal can fly?", "options": ["Fish", "Bird", "Snake", "Frog"], "correct": "Bird"},
+        {"question": "What do plants need to grow?", "options": ["Candy", "Toys", "Water", "Ice cream"], "correct": "Water"},
+        {"question": "Which is the largest animal?", "options": ["Ant", "Cat", "Elephant", "Mouse"], "correct": "Elephant"},
+        {"question": "Where do fish live?", "options": ["Trees", "Water", "Sky", "Desert"], "correct": "Water"},
+        {"question": "What do we use to see things far away?", "options": ["Telescope", "Fork", "Pillow", "Shoe"], "correct": "Telescope"}
+    ],
+    # Medium and hard can be added similarly...
+}
+
+def run_quiz(difficulty):
+    score = 0
+    questions = questions_by_difficulty[difficulty]
+    
+    for i, q in enumerate(questions, 1):
+        print(f"\nQuestion {i}: {q['question']}")
+        for idx, option in enumerate(q['options'], 1):
+            print(f"{idx}. {option}")
+        
+        try:
+            choice = int(input("Enter the option number: "))
+            selected = q['options'][choice - 1]
+        except (ValueError, IndexError):
+            print("Invalid input. Skipping question.")
+            continue
+        
+        if selected == q['correct']:
+            print("Correct! 🎉")
+            score += 1
+        else:
+            print(f"Wrong. The correct answer was: {q['correct']}")
+        
+        time.sleep(1.5)
+
+    print(f"\nYou got {score} out of {len(questions)} correct!")
+
+def main():
+    print("Welcome to Science Sea! 🌊")
+    difficulty = input("Choose difficulty (easy/medium/hard): ").lower()
+
+    if difficulty in questions_by_difficulty:
+        run_quiz(difficulty)
+    else:
+        print("Invalid difficulty selected.")
+
+if __name__ == "__main__":
+    main()
